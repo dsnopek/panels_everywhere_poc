@@ -1,0 +1,52 @@
+uuid: e593901d-0d51-4dca-840b-11517209c876
+langcode: en
+status: true
+dependencies:
+  module:
+    - panels
+    - system
+id: site_template
+label: 'Site template'
+use_admin_theme: null
+path: /site_template
+display_variants:
+  35462bcc-94a5-48a2-af00-ca21004f1e33:
+    id: http_status_code
+    label: Default
+    weight: 10
+    uuid: 35462bcc-94a5-48a2-af00-ca21004f1e33
+    status_code: 404
+  4a63180f-eb02-4413-bc5f-950f864c7cc5:
+    selection_conditions: {  }
+    blocks:
+      a4afccce-65c8-4ecd-af44-681c4f5fd999:
+        id: system_main_block
+        label: 'Main page content'
+        provider: system
+        label_display: visible
+        cache:
+          max_age: -1
+        region: right
+        weight: '0'
+        uuid: a4afccce-65c8-4ecd-af44-681c4f5fd999
+        context_mapping: {  }
+      b0d2d356-495d-45c4-a008-8d7b9921ecea:
+        id: system_powered_by_block
+        label: 'Powered by Drupal'
+        provider: system
+        label_display: visible
+        cache:
+          max_age: -1
+        region: left
+        weight: '0'
+        uuid: b0d2d356-495d-45c4-a008-8d7b9921ecea
+        context_mapping: {  }
+    id: panels_variant
+    label: 'Panels variant'
+    uuid: 4a63180f-eb02-4413-bc5f-950f864c7cc5
+    weight: 0
+    selection_logic: and
+    page_title: 'Site template'
+    layout: twocol
+access_logic: and
+access_conditions: {  }
