@@ -1,0 +1,5 @@
+services:
+  panels_everywhere_poc.page_display_variant_subscriber:
+    class: Drupal\panels_everywhere_poc\EventSubscriber\PanelsEverywherePageDisplayVariantSubscriber
+    tags:
+      - { name: event_subscriber, priority: 1000 }

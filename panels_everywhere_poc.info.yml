@@ -1,0 +1,8 @@
+name: Panels Everywhere (PoC)
+type: module
+description: 'A proof-of-concept implementation of Panels Everywhere.'
+core: 8.x
+package: Other
+dependencies:
+  - page_manager
+  - panels
