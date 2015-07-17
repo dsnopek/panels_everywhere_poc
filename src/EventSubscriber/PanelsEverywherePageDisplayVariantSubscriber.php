@@ -11,6 +11,7 @@ use Drupal\Core\Entity\EntityManagerInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\Render\PageDisplayVariantSelectionEvent;
 use Drupal\Core\Render\RenderEvents;
+use Drupal\Core\Display\PageVariantInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -43,9 +44,13 @@ class PanelsEverywherePageDisplayVariantSubscriber implements EventSubscriberInt
   public function onSelectPageDisplayVariant(PageDisplayVariantSelectionEvent $event) {
     $page = $this->entityStorage->load('site_template');
     if ($variant = $page->getExecutable()->selectDisplayVariant()) {
-      // This is the general idea, but the Panels variant won't work.
-      $event->setPluginId($variant->getPluginId());
-      $event->setPluginConfiguration($variant->getConfiguration());
+      if ($variant instanceof PageVariantInterface) {
+        // This is the most important bit: telling core what variant to use.
+        // @todo: This won't actually work until we solve issue #2511570, or by
+        // commenting out the loop in PanelsDisplayVariant::getContextAsTokenData()
+        $event->setPluginId($variant->getPluginId());
+        $event->setPluginConfiguration($variant->getConfiguration());
+      }
     }
   }
 

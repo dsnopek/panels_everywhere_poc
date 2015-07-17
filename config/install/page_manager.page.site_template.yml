@@ -41,7 +41,7 @@ display_variants:
         weight: '0'
         uuid: b0d2d356-495d-45c4-a008-8d7b9921ecea
         context_mapping: {  }
-    id: panels_variant
+    id: panels_everywhere_variant
     label: 'Panels variant'
     uuid: 4a63180f-eb02-4413-bc5f-950f864c7cc5
     weight: 0
