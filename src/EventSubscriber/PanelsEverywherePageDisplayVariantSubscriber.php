@@ -7,6 +7,7 @@
 
 namespace Drupal\panels_everywhere_poc\EventSubscriber;
 
+use Drupal\Core\Entity\EntityManagerInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\Render\PageDisplayVariantSelectionEvent;
 use Drupal\Core\Render\RenderEvents;
@@ -16,6 +17,22 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  * Selects the appropriate page display variant from 'site_template'.
  */
 class PanelsEverywherePageDisplayVariantSubscriber implements EventSubscriberInterface {
+  /**
+   * The entity storage.
+   *
+   * @var \Drupal\Core\Entity\EntityStorageInterface
+   */
+  protected $entityStorage;
+
+  /**
+   * Constructs a new PageManagerRoutes.
+   *
+   * @param \Drupal\Core\Entity\EntityManagerInterface $entity_manager
+   *   The entity manager.
+   */
+  public function __construct(EntityManagerInterface $entity_manager) {
+    $this->entityStorage = $entity_manager->getStorage('page');
+  }
 
   /**
    * Selects the page display variant.
@@ -24,7 +41,12 @@ class PanelsEverywherePageDisplayVariantSubscriber implements EventSubscriberInt
    *   The event to process.
    */
   public function onSelectPageDisplayVariant(PageDisplayVariantSelectionEvent $event) {
-    // @todo: do the magic here!
+    $page = $this->entityStorage->load('site_template');
+    if ($variant = $page->getExecutable()->selectDisplayVariant()) {
+      // This is the general idea, but the Panels variant won't work.
+      $event->setPluginId($variant->getPluginId());
+      $event->setPluginConfiguration($variant->getConfiguration());
+    }
   }
 
   /**
